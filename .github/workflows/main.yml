@@ -1,26 +1,38 @@
 name: Build and Publish Package
 
-on:
-  push:
-    tags:
-      - "v*"
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 11.x
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js 11.x # Use Nodejs 11
         uses: actions/setup-node@v1
         with:
           node-version: 11.x
-      - name: NPM install
-        run: |
-          npm install
-      - name: Publish
-        uses: actions/npm@master
+      - run: yarn install
+
+      - name: Install dependencies # Install all deps
+        run: yarn
+
+      - name: Sync versions # Sync versions
+        run: yarn syncprojects
+
+      - name: Build # Build
+        run: yarn build
+
+      - name: Publish to npmjs
+        run: npm publish --folder dist/ngx-scrolltop --dry-run
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish to GPR
+        uses: actions/setup-node@v1
         with:
-          args: run publish
+          registry-url: "https://npm.pkg.github.com"
+      - run: npm publish --folder dist/ngx-scrolltop --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
