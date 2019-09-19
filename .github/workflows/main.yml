@@ -13,7 +13,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 11.x
-      - run: yarn install
 
       - name: Install dependencies # Install all deps
         run: yarn
@@ -24,15 +23,15 @@ jobs:
       - name: Build # Build
         run: yarn build
 
-      - name: Publish to npmjs
-        run: npm publish --folder dist/ngx-scrolltop --dry-run
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
       - name: Publish to GPR
         uses: actions/setup-node@v1
         with:
           registry-url: "https://npm.pkg.github.com"
-      - run: npm publish --folder dist/ngx-scrolltop --dry-run
+      - run: npm publish --folder dist/ngx-scrolltop
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to npmjs
+        run: npm publish --folder dist/ngx-scrolltop --dry-run
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
