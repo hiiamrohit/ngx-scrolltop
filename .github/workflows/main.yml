@@ -24,10 +24,7 @@ jobs:
         run: yarn build
 
       - name: Publish to GPR
-        uses: actions/setup-node@v1
-        with:
-          registry-url: "https://npm.pkg.github.com"
-      - run: npm publish --folder dist/ngx-scrolltop
+        run: npm publish --registry=https://npm.pkg.github.com --folder=dist/ngx-scrolltop
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
