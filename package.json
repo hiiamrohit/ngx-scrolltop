@@ -10,7 +10,7 @@
     "build": "ng build ngx-scrolltop",
     "build:example": "ng build example --prod",
     "deploy:ghpages": "npm run build:example && ngh --dir=dist/",
-    "publish": "npm run syncprojects && npm run build && cd dist/ngx-scrolltop && npm publish --dry-run",
+    "publish": "npm run syncprojects && npm run build && cd dist/ngx-scrolltop && npm publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
