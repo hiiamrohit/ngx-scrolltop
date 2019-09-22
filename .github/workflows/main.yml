@@ -26,7 +26,7 @@ jobs:
         run: yarn build:schematics
 
       - name: Publish docs
-        run: yarn deploy:ghpages
+        run: git checkout gh-pages && git reset --hard origin/master && git push gh-pages --force && yarn deploy:ghpages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
