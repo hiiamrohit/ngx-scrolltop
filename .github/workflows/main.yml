@@ -1,9 +1,6 @@
 name: Build and Publish Package
 
-on:
-  push:
-    tags:
-      - "v*"
+on: [push]
 
 jobs:
   build:
@@ -27,6 +24,16 @@ jobs:
 
       - name: Build Schematics # Build Schematics and move
         run: yarn build:schematics
+
+      - name: Publish docs
+        run: yarn deploy:ghpages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - name: Publish to GPR
+        run: npm publish --registry=https://npm.pkg.github.com/@bartholomej --folder=dist/ngx-scrolltop
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
       - name: Publish
         uses: actions/npm@master
