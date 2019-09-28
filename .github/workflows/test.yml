@@ -1,9 +1,9 @@
-name: Build & run tests
+name: Build & run all tests
 
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,4 +26,7 @@ jobs:
         run: yarn build:schematics
 
       - name: Build Schematics # Build Schematics and move
+        run: yarn build:example
+
+      - name: Run tests # Build Schematics and move
         run: yarn test --configuration=ci
