@@ -1,9 +1,6 @@
-name: Build and Publish Package
+name: Build & run tests
 
-on:
-  push:
-    tags:
-      - "v*"
+on: [push]
 
 jobs:
   build:
@@ -30,10 +27,3 @@ jobs:
 
       - name: Build Schematics # Build Schematics and move
         run: yarn test --configuration=ci
-
-      - name: Publish
-        uses: actions/npm@master
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        with:
-          args: publish --folder dist/ngx-scrolltop
