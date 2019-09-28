@@ -26,13 +26,22 @@ describe('NgxScrollTopDirective', () => {
     expect(component).toBeDefined();
   });
 
-  it('should scroll to top', () => {
+  it('should scroll to top', done => {
     const debugEl: HTMLElement = fixture.debugElement.nativeElement;
     const p: HTMLElement = debugEl.querySelector('.my-scroll-top-button');
+
+    // Make window scrollable
+    document.body.style.minHeight = '1000px';
+    window.scrollTo(0, 100);
+    fixture.detectChanges();
 
     p.click();
     fixture.detectChanges();
 
-    expect(document.documentElement.scrollTop).toBe(0);
+    setTimeout(() => {
+      // Wait some time for smooth scroll
+      expect(document.documentElement.scrollTop).toBe(0);
+      done();
+    }, 2000);
   });
 });
