@@ -33,7 +33,7 @@ jobs:
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         with:
-          args: publish --folder dist/ngx-scrolltop --dry-mode
+          args: publish --folder dist/ngx-scrolltop --dry-run
 
       - name: Set up package for GPR
         run: yarn gpr:setup
