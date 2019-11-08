@@ -3,10 +3,11 @@
  */
 const { resolve } = require('path')
 const { writeFileSync } = require('fs-extra')
-const { version } = require('./package.json')
+const { version } = require('../package.json')
 
 const packagePath = resolve(
   __dirname,
+  '..',
   'projects',
   'ngx-scrolltop',
   'package.json'

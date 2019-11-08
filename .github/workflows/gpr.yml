@@ -1,0 +1,46 @@
+name: Build & Tests & Publish
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 11.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 11.x
+
+      - name: Install dependencies # Install all deps
+        run: yarn
+
+      - name: Set up package for GPR
+        run: yarn gpr:setup
+
+      - name: Sync versions # Sync versions
+        run: yarn syncprojects
+
+      - name: Build ngx-scrolltop # Build
+        run: yarn build
+
+      - name: Build Schematics # Build Schematics and move
+        run: yarn build:schematics
+
+      # - name: Run tests # Build Schematics and move
+      #   run: yarn test --configuration=ci
+
+      # Publish to GitHub Package Registry
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/bartholomej/
+          scope: "@bartholomej"
+          always-auth: true # required if using yarn
+      - name: Publish to GitHub Packages
+        run: |
+          npm config set scope "@bartholomej"
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{github.token}}
