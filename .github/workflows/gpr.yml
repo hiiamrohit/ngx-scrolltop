@@ -34,13 +34,12 @@ jobs:
       # Publish to GitHub Package Registry
       - uses: actions/setup-node@master
         with:
-          registry-url: https://npm.pkg.github.com/bartholomej/
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
           scope: "@bartholomej"
-          always-auth: true # required if using yarn
-      - name: Publish to GitHub Packages
+      - name: Publish to GitHub Package Registry
         run: |
           cd dist/ngx-scrolltop
-          npm config set scope "@bartholomej"
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{github.token}}
