@@ -1,6 +1,6 @@
 {
   "name": "ngx-scrolltop",
-  "version": "0.5.4",
+  "version": "0.5.5-rc.1",
   "description": "Lightweight, Material Design inspired button for scroll-to-top of the page. No dependencies. Pure Angular!",
   "author": "Lukas Bartak <bart@bartweb.cz> (https://github.com/bartholomej)",
   "peerDependencies": {
@@ -27,5 +27,11 @@
     "scrollTop",
     "scroll to top",
     "sass"
-  ]
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
