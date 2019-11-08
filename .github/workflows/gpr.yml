@@ -16,9 +16,6 @@ jobs:
       - name: Install dependencies # Install all deps
         run: yarn
 
-      - name: Set up package for GPR
-        run: yarn gpr:setup
-
       - name: Sync versions # Sync versions
         run: yarn syncprojects
 
@@ -30,6 +27,16 @@ jobs:
 
       # - name: Run tests # Build Schematics and move
       #   run: yarn test --configuration=ci
+
+      - name: Publish NPM
+        uses: actions/npm@master
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        with:
+          args: publish --folder dist/ngx-scrolltop --dry-mode
+
+      - name: Set up package for GPR
+        run: yarn gpr:setup
 
       # Publish to GitHub Package Registry
       - uses: actions/setup-node@master
