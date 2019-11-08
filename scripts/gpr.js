@@ -4,5 +4,10 @@ const { join } = require('path')
 const pkg = require('../package.json')
 
 pkg.name = `@bartholomej/${pkg.name}`
+pkg.publishConfig = {}
+pkg.publishConfig.registry = `https://npm.pkg.github.com/@bartholomej`
 
-fs.writeFileSync(join(__dirname, '../package.json'), JSON.stringify(pkg, null, 2))
+fs.writeFileSync(
+  join(__dirname, '../package.json'),
+  JSON.stringify(pkg, null, 2)
+)
