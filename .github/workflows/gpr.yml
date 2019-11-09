@@ -25,11 +25,11 @@ jobs:
       - name: Build Schematics # Build Schematics and move
         run: yarn build:schematics
 
-      # - name: Run tests # Build Schematics and move
-      #   run: yarn test --configuration=ci
+      - name: Run tests # Build Schematics and move
+        run: yarn test --configuration=ci
 
       - name: Publish NPM
-        uses: actions/npm@master
+        uses: actions/setup-node@master
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         with:
